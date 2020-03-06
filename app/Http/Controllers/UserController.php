@@ -3,20 +3,21 @@
 namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Arr;
 
 class UserController extends Controller
 {
-    function listUsers() {
+    function index() {
         $users = User::all();
         // dd($users);
         return view('backend.user.list', ['users' => $users]);
     }
-    function addUser(){
+    function create(){
         return view('backend.user.add');
     }
-    function saveAddUser(){
+    function store(){
         $data = request()->all();
-        // $data = Arr::except($request, ['_token']);
+        $data = Arr::except($data, ['_token']);
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -30,35 +31,35 @@ class UserController extends Controller
             //     'avatar' = $file->store('uploads');
             // }
         ]);
-        return redirect()->route('listUser');
+        return redirect()->route('user.index')->with('success', 'Thêm tài khoản thành công');
     }
-    function deleteUser($id){
+    function destrow($id){
         User::destroy($id);
-        return redirect()->route('listUser');
+        return redirect()->route('user.index');
 
     }
-    function editUser($id){
+    function edit($id){
         $data['user'] = User::find($id);
         // dd($user->name);
         return view('backend.user.edit',$data);
     }
-    function saveEditUser($id){
-        $request = request()->all();
-        // $data = Arr::except($request, ["_token"]);
+    function update($id){
+        $data = Arr::except(request()->all(), ["_token"]);
+        // dd($data);
         $user = User::find($id);
         // dd($request['status']);
-        $user->name = $request['name'];
-        $user->email = $request['email'];
-        if($request['avatar'] != null){
-            $user->avatar = $request['avatar'];
+        $user->name = $data['name'];
+        $user->email = $data['email'];
+        if($data['avatar'] != null){
+            $user->avatar = $data['avatar'];
         }
-        if($request['password'] != null){
-            $user->password = bcrypt($request['password']);
+        if($data['password'] != null){
+            $user->password = bcrypt($data['password']);
         }
-        $user->role = $request['role'];
-        $user->status = $request['status'];
+        $user->role = $data['role'];
+        $user->status = $data['status'];
         // dd($user);
-        $user->save();
-        return redirect()->route('listUser');
+        $user->update();
+        return redirect()->route('user.edit',  $id)->with('success', 'Sửa tài khoản thành công');
     }
 }

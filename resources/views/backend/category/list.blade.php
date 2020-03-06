@@ -7,6 +7,11 @@
 
           <!-- Page Heading -->
           <h1 class="h3 mb-2 text-gray-800">Danh sách chủ đề</h1>
+          @if (session('success'))
+          <div class="alert alert-success">
+              <strong>{{ session('success') }} </strong>
+          </div>
+        @endif
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-body">
@@ -17,7 +22,7 @@
                         <th>Tên</th>
                         <th>Trạng thái</th>
                         <th>
-                            <a href="{{ route('addCategory') }}" class="btn btn-success btn-icon-split">
+                            <a href="{{ route('category.create') }}" class="btn btn-success btn-icon-split">
                               <span class="icon text-white-50">
                                 <i class="fas fa-plus"></i>
                               </span>
@@ -38,18 +43,22 @@
                             Hiển
                         @endif </td>
                         <td>
-                            <a href="{{route('listCategory').'/edit/'.$category->id}}" class="btn btn-warning btn-icon-split">
+                            <a href="{{route('category.edit', $category->id)}}" class="btn btn-warning btn-icon-split">
                                 <span class="icon text-white-50">
                                     <i class="fas fa-edit"></i>
                                 </span>
                                 <span class="text">Sửa</span>
                             </a>
-                            <a onclick="del()" href="{{route('listCategory').'/delete/'.$category->id}}" class="btn btn-danger btn-icon-split">
-                              <span class="icon text-white-50">
-                                <i class="fas fa-trash"></i>
-                              </span>
-                              <span class="text">Xóa</span>
-                            </a>
+                            <form class="d-inline" action="{{ route('category.destroy', [$category->id]) }}" method="POST">
+                                    {{ csrf_field() }}
+                                    {{ method_field('DELETE') }}
+                                    <button class="btn btn-danger btn-icon-split" onclick="return del()">
+                                      <span class="icon text-white-50">
+                                        <i class="fas fa-trash"></i>
+                                      </span>
+                                      Xóa
+                                    </button>
+                            </form>
                         </td>
                     </tr>     
                       @endforeach

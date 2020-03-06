@@ -7,6 +7,11 @@
 
           <!-- Page Heading -->
           <h1 class="h3 mb-2 text-gray-800">Danh sách bài viết</h1>
+          @if (session('success'))
+          <div class="alert alert-success">
+              <strong>{{ session('success') }} </strong>
+          </div>
+        @endif
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-body">
@@ -21,7 +26,7 @@
                         <th>Người đăng</th>
                         <th>Chủ đề</th>
                         <th>
-                            <a href="{{ route('addPost') }}" class="btn btn-success btn-icon-split">
+                            <a href="{{ route('post.create') }}" class="btn btn-success btn-icon-split">
                               <span class="icon text-white-50">
                                 <i class="fas fa-plus"></i>
                               </span>
@@ -36,7 +41,7 @@
                       @foreach ($posts as $post)
                     <tr>
                         <td> {{ $post->title }} </td>
-                        <td> <img src="{{ $post->image }}" width="100px" alt=""> </td>
+                        <td> <img src="../storage/{{ $post->image }}" width="100px" alt=""> </td>
                         <td> {{ $post->like }} <i class="fas fa-thumbs-up text-primary"></i> </td>
                         <td> 
                           @if ($post->status == 0)
@@ -50,18 +55,22 @@
                         <td> {{ $post->user->name }} </td>
                         <td> {{ $post->category->name }} </td>
                         <td>
-                            <a href="{{route('listPost').'/edit/'.$post->id}}" class="btn btn-warning btn-icon-split">
+                            <a href="{{route('post.edit', $post->id)}}" class="btn btn-warning btn-icon-split">
                                 <span class="icon text-white-50">
                                     <i class="fas fa-edit"></i>
                                 </span>
                                 <span class="text">Sửa</span>
                             </a>
-                            <a onclick="del()" href="{{route('listPost').'/delete/'.$post->id}}" class="btn btn-danger btn-icon-split">
-                              <span class="icon text-white-50">
-                                <i class="fas fa-trash"></i>
-                              </span>
-                              <span class="text">Xóa</span>
-                            </a>
+                            <form class="d-inline" action="{{ route('post.destroy', [$post->id]) }}" method="POST">
+                                    {{ csrf_field() }}
+                                    {{ method_field('DELETE') }}
+                                    <button class="btn btn-danger btn-icon-split" onclick="return del()">
+                                      <span class="icon text-white-50">
+                                        <i class="fas fa-trash"></i>
+                                      </span>
+                                      Xóa
+                                    </button>
+                            </form>
                         </td>
                     </tr>
                           

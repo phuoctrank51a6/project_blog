@@ -9,6 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
+  <link rel="icon" sizes="230x230" href="img/icon-p.png">
   <title>Tạo tài khoản</title>
   <base href="{{ asset('') . 'backend/' }}">
 
@@ -35,49 +36,47 @@
               <div class="text-center">
                 <h1 class="h4 text-gray-900 mb-4">Tạo tài khoản</h1>
               </div>
-               <form method="post" action="{{route('saveRegister')}}" class="user">
+              @if (session('success'))
+                <div class="alert alert-success">
+                    <strong>{{ session('success') }} </strong>
+                </div>
+              @endif
+               <form action="{{route('saveRegister')}}" method="post" class="user" enctype="multipart/form-data">
                   @csrf
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="text" class="form-control form-control-user" name="name" id="exampleFirstName" placeholder="Họ tên bạn">
-                    {{-- {!! showError($error,'name') !!} --}}
+                  <input type="text" class="form-control form-control-user" name="name" value="{{ old('name') }}" placeholder="Họ tên bạn">
+                    {!! showError($errors,'name') !!}
                 </div>
                   <div class="col-sm-6">
-                    <input type="file" class="form-control form-control-user" name="avatar" id="exampleLastName" placeholder="Last Name">
-                    {{-- {!! showError($error,'avatar') !!} --}}
+                  <input type="file" class="form-control form-control-user" name="avatar" placeholder="Last Name">
+                    {!! showError($errors,'avatar') !!}
                   </div>
                 </div>
                 <div class="form-group">
-                  <input type="email" class="form-control form-control-user" name="email" id="exampleInputEmail" placeholder="Email Address">
-                  {{-- {!! showError($error,'email') !!} --}}
+                <input type="email" class="form-control form-control-user" name="email" value="{{ old('email') }}" placeholder="Email Address">
+                  {!! showError($errors,'email') !!}
                 </div>
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="password" class="form-control form-control-user" name="password" id="exampleInputPassword" placeholder="Password">
-                    {{-- {!! showError($error,'password') !!} --}}
+                    <input type="password" class="form-control form-control-user" name="password" placeholder="Password">
+                    {!! showError($errors,'password') !!}
                   </div>
                   <div class="col-sm-6">
-                    <input type="password" class="form-control form-control-user" name="password_confirmation." id="exampleRepeatPassword" placeholder="Repeat Password">
-                    {{-- {!! showError($error,'password_confirmation') !!} --}}
+                    <input type="password" class="form-control form-control-user" name="password_confirmation" placeholder="Repeat Password">
+                    {!! showError($errors,'password_confirmation') !!}
                   </div>
                   <input type="hidden" name="status" value="0" id="">
                   <input type="hidden" name="role" value="2" id="">
                 </div>
                 <button type="submit" class="btn btn-primary btn-user btn-block">Tạo tài khoản</button>
-                <hr>
-                <a href="index.html" class="btn btn-google btn-user btn-block">
-                  <i class="fab fa-google fa-fw"></i> Register with Google
-                </a>
-                <a href="index.html" class="btn btn-facebook btn-user btn-block">
-                  <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
-                </a>
               </form>
               <hr>
               <div class="text-center">
                 <a class="small" href="forgot-password.html">Forgot Password?</a>
               </div>
               <div class="text-center">
-                <a class="small" href="login.html">Already have an account? Login!</a>
+                <a class="small" href=" {{route('login')}} ">Already have an account? Login!</a>
               </div>
             </div>
           </div>

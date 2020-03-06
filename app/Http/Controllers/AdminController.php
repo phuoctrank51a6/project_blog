@@ -3,26 +3,54 @@
 namespace App\Http\Controllers;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
+use App\Models\Category;
+use App\Models\Post;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 
 class AdminController extends Controller
 {
     function index() {
-        return view('backend.index');
+        $totalUser = User::count();
+        $totalCategory = Category::count();
+        $totalPost = Post::count();
+        $totalComment = Comment::count();
+        $array = array();
+        for($i=1; $i<13;$i++){
+            $count = Post::whereMonth('created_at', $i)->whereYear('created_at', '2020')->count();
+            // echo $count;
+            array_push($array, $count);
+        }
+        // dd($array);
+        // $countCate = Post::select('category_id', Post::count())->groupBy('category_id')->get();
+        // dd($countCate);
+
+        return view('backend.index',compact('totalUser','totalCategory','totalPost','totalComment', 'array'));
     }
     function register(){
         return  view('backend.register');
     }
-    function saveRegister(RegisterRequest $r){
-        // dd(registerRequest()->all());
-        // $request = request()->all();
-        // // dd($request);
-        // $data = Arr::except($request, ['_token']);
-        // // dd($data);
-        // $data['password']=bcrypt($data['password']);
-        // // dd($data);
-        // User::create($data);
-        // return redirect()->route('register');
+    function saveRegister(RegisterRequest $request){
+        $data = Arr::except($request->all(), [
+            '_token',
+            'avatar'
+            ]);
+        $data['avatar'] = $request->file('avatar')->store('avatars', 'public');
+        dd($data);  
+
+        // dd($data);
+        // if($request->hasFile('avatar')){
+        //     $file->$request->avatar;
+        //     $file_name=str_slug($request->name).'.'. $file->getClientOriginalExtension();
+        //     $file->move('backend/img/user',$file_name);
+        //     $data['avatar']=$file_name;
+        // }else{
+        //     $data['avatar']= 'user/no-user.jpg';
+        // }
+        $data['password']=bcrypt($data['password']);
+        // dd($data);  
+        User::create($data);
+        return redirect()->back()->with('success', 'Đăng ký tài khoản thành công')->withInput();
         }
 };

@@ -1,5 +1,5 @@
 <?php
-function showError($error,$name){
+function showError($errors,$name){
     if($errors->has($name))
     return '
     <div class="alert alert-danger">

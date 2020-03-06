@@ -7,11 +7,16 @@
 
           <!-- Page Heading -->
           <h1 class="h3 mb-2 text-gray-800">Thêm tài khoản</h1>
+          @if (session('success'))
+          <div class="alert alert-success">
+              <strong>{{ session('success') }} </strong>
+          </div>
+        @endif
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-body">
               <div class="table-responsive">
-                  <form action="{{ route('saveadduser') }}" method="post">
+                  <form action="{{ route('user.store') }}" method="post">
                     @csrf
                     <p>Tên</p>
                     <input class="form-control bg-light border-0 small" placeholder="Nhập tên của bạn ..." type="text" name="name">

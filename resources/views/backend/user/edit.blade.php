@@ -7,19 +7,25 @@
 
           <!-- Page Heading -->
         <h1 class="h3 mb-2 text-gray-800">Sửa tài khoản <b class="text-danger">{{$user->name}}</b> </h1>
+        @if (session('success'))
+        <div class="alert alert-success">
+            <strong>{{ session('success') }} </strong>
+        </div>
+      @endif
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-body">
               <div class="table-responsive">
-                <form action="{{route('listUser').'/save-edit/'.$user->id}}" method="post">
+                <form action="{{route('user.update', $user->id)}}" method="post">
                     @csrf
+                    {{ method_field('PUT') }}
                     <p>Tên</p>
                     <input class="form-control bg-light border-0 small" value="{{$user->name}}" type="text" name="name">
                     <p>email</p>
                     <input class="form-control bg-light border-0 small" value="{{$user->email}}" type="text" name="email">
                     <p>Ảnh đại diện</p>
-                  <img src="{{$user->avatar}}" alt="">
-                    <input class="form-control bg-light border-0 small" value="{{$user->avatar}}" type="file" name="avatar"
+                    <img src="../storage/{{$user->avatar}}" height="200px" alt="">
+                    <input class="form-control bg-light border-0 small" value="{{$user->avatar}}" type="file" name="avatar">
                     <p>Mật khẩu</p>
                     <input class="form-control bg-light border-0 small" placeholder="Nhập tên của bạn ..." type="text" name="password">
                     <p>Nhập lại mật khẩu</p>

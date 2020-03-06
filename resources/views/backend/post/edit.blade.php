@@ -7,17 +7,25 @@
 
           <!-- Page Heading -->
         <h1 class="h3 mb-2 text-gray-800">Sửa bài viết</h1>
+        @if (session('success'))
+        <div class="alert alert-danger">
+            <strong>{{ session('success') }} </strong>
+        </div>
+      @endif
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-body">
               <div class="table-responsive">
-                <form action="{{route('listPost').'/save-edit/'.$post->id}}" method="post">
+                <form action="{{route('comment.update', $post->id)}}" method="post" enctype="multipart/form-data">
                     @csrf
+                    {{ method_field('PATCH') }}
                     <p>Tiêu đề</p>
                     <input class="form-control bg-light border-0 small" value="{{$post->title}}" type="text" name="title">
                     <p>Nội dung</p>
                     <textarea rows="5" class="form-control bg-light border-0 small" type="text" name="content">{{$post->content}}</textarea>
                     <p>Ảnh</p>
+                    <img src="../storage/{{$post->image}}" height="200  
+                    px" alt="">
                     <input class="form-control bg-light border-0 small" value="{{$post->image}}" type="file" name="image">
                     <p>Trạng thái</p>
                     <select class="form-control bg-light border-0 small" name="status">
@@ -32,7 +40,7 @@
                         <option @if ($post->status==$category->id) selected @endif value="{{$category->id}}">{{$category->name}}</option>
                       @endforeach
                     </select>
-                    <input value="2" type="text" name="user_id">
+                    <input value="2" type="hidden" name="user_id">
                     <br><br>
                     <button type="submit" class="btn btn-warning btn-icon-split btn-lg">
                         <span class="icon text-white-50">

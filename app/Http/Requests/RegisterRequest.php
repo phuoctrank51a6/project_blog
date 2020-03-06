@@ -24,23 +24,27 @@ class RegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'      => 'require|min:2',
-            'email'     => 'require|email|unique:users,email',
-            'avatar'    => 'image',
-            'password'  => 'require|min:5',
-            // 'password_confirmation'=> 'confirmed'
+            'name'      => 'required|min:2',
+            'email'     => 'required|email|unique:users,email',
+            'avatar'    => 'required|image',
+            'password'  => 'required|min:5',
+            'password_confirmation'=> 'required|same:password'
+
         ];
     }
     public function messages(){
         return [
             'name.required'     => 'Tên không được để trống',
             'name.min'          => 'Tên quá ngắn',
-            'email.require'     => 'email không được để trống',
+            'email.required'    => 'email không được để trống',
+            'email.email'       => 'email không đúng định dạng',
             'email.unique'      => 'email đã tồn tại',
+            'avatar.required'   => 'Bạn chưa tải ảnh lên',
             'avatar.image'      => 'Ảnh không đúng định dạng',
-            'password.require'  => 'Password không được để trống',
+            'password.required' => 'Mật khẩu không được để trống',
             'password.min'      => 'Mật khẩu quá ngắn',
-            // 'password_confirmation.confirmed'=> 'Mật khẩu không trùng khớp'  
+            'password_confirmation.required' => 'Mật khẩu không được để trống',
+            'password_confirmation.same' => 'Mật khẩu không trùng khớp' 
         ];
     }
 }
