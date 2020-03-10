@@ -19,7 +19,7 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                        <th>Tiêu đề</th>
+                        <th style="width:35%">Tiêu đề</th>
                         <th>Ảnh</th>
                         <th>Thích</th>
                         <th style="width:9%">Trạng thái</th>
@@ -45,11 +45,11 @@
                         <td> {{ $post->like }} <i class="fas fa-thumbs-up text-primary"></i> </td>
                         <td> 
                           @if ($post->status == 0)
-                              <div class=" p-12 mb-6 bg-warning text-white">Chờ duyệt</div>
+                          <i class="fas fa-circle text-warning"></i> Chờ duyệt
                           @elseif ($post->status ==1)
-                            <div class="p-12 mb-6 bg-success text-white">Hiện thị</div>
+                          <i class="fas fa-circle text-success"></i> Hiện thị
                           @elseif ($post->status ==2)
-                          <div class="p-12 mb-6 bg-danger text-white">Ẩn</div>
+                          <i class="fas fa-circle text-danger"></i> Ẩn
                           @endif  
                         </td>
                         <td> {{ $post->user->name }} </td>

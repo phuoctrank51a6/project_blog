@@ -39,9 +39,11 @@
                         {{-- <td> {{ $comment->post->title }} </td> --}}
                         <td>{{$comment->user->name}}</td>
                         <td> @if ($comment->status==0)
-                            Ẩn
+                          <i class="fas fa-circle text-warning"></i> Chờ duyệt
                         @elseif($comment->status==1)
-                            Hiện
+                        <i class="fas fa-circle text-success"></i> Đã duyệt
+                        @elseif($comment->status==2)
+                        <i class="fas fa-circle text-danger"></i> Không duyệt
                         @endif </td>
                         <td>
                             <a href="{{ route('comment.edit', $comment->id) }}" class="btn btn-warning btn-icon-split">

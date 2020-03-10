@@ -30,12 +30,17 @@
                     <input class="form-control bg-light border-0 small" type="file" name="image">
                     {!! showError($errors,'image') !!}
                     <input value="0" type="hidden" name="status">
-                    <input type="hidden" name="like" value="0">
+                    <select class="form-control bg-light border-0 small" name="status" id="">
+                      <option disabled>Chọn trạng thái</option>
+                        <option @if ($post->status == 0) selected @endif value="0">Chờ duyệt</option>
+                        <option @if ($post->status == 1) selected @endif value="1">Đã duyệt</option>
+                        <option @if ($post->status == 2) selected @endif value="2">Không duyệt</option>
+                    </select>
                     <p>Chủ đề</p>
                     <select class="form-control bg-light border-0 small" name="category_id" id="">
                       <option disabled>Chọn chủ đề</option>
                       @foreach ($categories as $category)
-                        <option value="{{$category->id}}">{{$category->name}}</option>
+                        <option @if ($post->category_id == $category->id) selected @endif value="{{$category->id}}">{{$category->name}}</option>
                       @endforeach
                     </select>
                     <input value="2" type="hidden" name="user_id">
