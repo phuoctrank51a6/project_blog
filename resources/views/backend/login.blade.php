@@ -46,8 +46,8 @@
                       </div>
                     @endif
                   </div>
-                <form class="user" action="{{route('admin').'/post-login'}}" method="POST">
-                      @csrf
+                <form class="user" action="{{route('postLogin')}}" method="POST">
+                  {{ csrf_field() }}
                     <div class="form-group">
                       <input type="email"  name="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
                       {!! showError($errors,'email') !!}

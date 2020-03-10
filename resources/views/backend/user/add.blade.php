@@ -16,20 +16,25 @@
           <div class="card shadow mb-4">
             <div class="card-body">
               <div class="table-responsive">
-                  <form action="{{ route('user.store') }}" method="post">
+                  <form action="{{ route('user.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <p>Tên</p>
-                    <input class="form-control bg-light border-0 small" placeholder="Nhập tên của bạn ..." type="text" name="name">
+                    <input class="form-control bg-light border-0 small" value="{{ old('name') }}" placeholder="Nhập tên của bạn ..." type="text" name="name">
+                    {!! showError($errors,'name') !!}
                     <p>email</p>
-                    <input class="form-control bg-light border-0 small" placeholder="Nhập tên của bạn ..." type="text" name="email">
+                    <input class="form-control bg-light border-0 small" value="{{ old('email') }}" placeholder="Nhập tên của bạn ..." type="text" name="email">
+                    {!! showError($errors,'email') !!}
                     <p>Ảnh đại diện</p>
-                    <input class="form-control bg-light border-0 small" placeholder="Nhập tên của bạn ..." type="file" name="avatar">
+                    <input type="file" class="form-control bg-light border-0 small" name="avatar">
+                    {!! showError($errors,'avatar') !!}
                     <p>Mật khẩu</p>
                     <input class="form-control bg-light border-0 small" placeholder="Nhập tên của bạn ..." type="text" name="password">
+                    {!! showError($errors,'password') !!}
                     <p>Nhập lại mật khẩu</p>
-                    <input class="form-control bg-light border-0 small" placeholder="Nhập tên của bạn ..." type="text" name="repassword">
-                    <input value="2" type="text" name="role">
-                    <input value="0" type="text" name="status">
+                    <input class="form-control bg-light border-0 small" placeholder="Nhập tên của bạn ..." type="text" name="password_confirmation">
+                    {!! showError($errors,'password_confirmation') !!}
+                    <input value="2" type="hidden" name="role">
+                    <input value="0" type="hidden" name="status">
                     <br><br>
                     <button type="submit" class="btn btn-success btn-icon-split btn-lg">
                         <span class="icon text-white-50">

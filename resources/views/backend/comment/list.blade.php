@@ -22,7 +22,7 @@
                     <tr>
                         <th>Tiêu đề</th>
                         <th>Nội dung bình luận</th>
-                        <th>Tiêu đề bài viết</th>
+                        {{-- <th>Tiêu đề bài viết</th> --}}
                         <th>Người bình luận</th>
                         <th>Trạng thái</th>
                         <th>
@@ -36,7 +36,7 @@
                     <tr>
                         <td> {{ $comment->title }} </td>
                         <td> {{ $comment->content }} </td>
-                        <td>{{$comment->post->title}}</td>
+                        {{-- <td> {{ $comment->post->title }} </td> --}}
                         <td>{{$comment->user->name}}</td>
                         <td> @if ($comment->status==0)
                             Ẩn

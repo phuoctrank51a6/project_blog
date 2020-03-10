@@ -42,7 +42,7 @@
                         <td> {{ $user->name }} </td>
                         <td> {{ $user->email }} </td>
                         <td>
-                           <img src="../storage/{{ $user->avatar }}" width="100px" alt=""> 
+                           <img src="../storage/{{ $user->avatar }}" height="90px" alt=""> 
                           </td>
                         <td> @if ($user->status == 0)
                             <b class="text-warning">Chưa kích hoạt</b>

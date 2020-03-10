@@ -26,7 +26,7 @@ class RegisterRequest extends FormRequest
         return [
             'name'      => 'required|min:2',
             'email'     => 'required|email|unique:users,email',
-            'avatar'    => 'required|image',
+            'avatar'    => 'image',
             'password'  => 'required|min:5',
             'password_confirmation'=> 'required|same:password'
 
@@ -39,7 +39,7 @@ class RegisterRequest extends FormRequest
             'email.required'    => 'email không được để trống',
             'email.email'       => 'email không đúng định dạng',
             'email.unique'      => 'email đã tồn tại',
-            'avatar.required'   => 'Bạn chưa tải ảnh lên',
+            // 'avatar.required'   => 'Bạn chưa tải ảnh lên',
             'avatar.image'      => 'Ảnh không đúng định dạng',
             'password.required' => 'Mật khẩu không được để trống',
             'password.min'      => 'Mật khẩu quá ngắn',

@@ -49,7 +49,7 @@
                     {!! showError($errors,'name') !!}
                 </div>
                   <div class="col-sm-6">
-                  <input type="file" class="form-control form-control-user" name="avatar" placeholder="Last Name">
+                  <input type="file" class="form-control form-control-user" name="avatar">
                     {!! showError($errors,'avatar') !!}
                   </div>
                 </div>

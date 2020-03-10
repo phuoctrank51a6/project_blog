@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use App\Http\Requests\PostRequest;
 
 class postController extends Controller
 {
@@ -18,18 +19,21 @@ class postController extends Controller
         $categories = Category::all();
         return view('backend.post.add', ['categories' => $categories]);
     }
-    function store(){
-        $request = request()->all();
+    function store(PostRequest $request){
         // dd($request);
         // dd($request['image']);  
-        $data = Arr::except($request, [
+        $data = Arr::except($request->all(), [
             '_token',
             'image',
             ]);
-        $data['image'] = $request['image']->store('images', 'public');
+        if($request['image'] != null){
+            $data['image'] = $request['image']->store('images', 'public');
+        }else{
+            $data['image'] = 'images/no-image.png';
+        }
         // dd($data['image']);
         Post::create($data);
-        return redirect()->route('post.index')->with('success','Thêm bài viết thành công');
+        return redirect()->back()->with('success','Thêm bài viết thành công')->withInput();
     }
     function destroy($id){
         
@@ -45,23 +49,18 @@ class postController extends Controller
         // dd($data);
         return view('backend.post.edit',$data, ['categories' => $categories]);
     }
-    function update($id){
-        $request = request()->all();
-        // dd($request['image']);
-        $data = Arr::except($request, ["_token"]);
+    function update(PostRequest $request, $id){
+        $data = Arr::except($request->all(), ["_token","image"]);
         $post = Post::find($id);
-        // dd($post);
-        // dd($data['title']);
+        // dd($request['image']);
+        
         $post->title = $data['title'];
         $post->content = $data['content'];
-        if($data['image'] != null){
-            $post->image = $data['image'];
-        }else{
-            $post->image = 'no-immage.png';
-        }
         $post->status = $data['status'];
         $post->category_id = $data['category_id'];
-        $post->user_id = $data['user_id'];
+        if($request['image'] != null){
+            $post['image'] = $request['image']->store('images', 'public');
+        }
         // dd($post);
         $post->update();
         return redirect()->route('post.edit', $id)->with('success','Cập nhật bài viết thành công');

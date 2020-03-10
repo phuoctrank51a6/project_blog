@@ -36,18 +36,13 @@ class AdminController extends Controller
             '_token',
             'avatar'
             ]);
-        $data['avatar'] = $request->file('avatar')->store('avatars', 'public');
-        dd($data);  
+        if($request['avatar'] != null){
+            $data['avatar'] = $request->file('avatar')->store('avatars', 'public');
+        }else{
+            $data['avatar'] = 'avatars/no-image.png';
+        }
+        // dd($data);  
 
-        // dd($data);
-        // if($request->hasFile('avatar')){
-        //     $file->$request->avatar;
-        //     $file_name=str_slug($request->name).'.'. $file->getClientOriginalExtension();
-        //     $file->move('backend/img/user',$file_name);
-        //     $data['avatar']=$file_name;
-        // }else{
-        //     $data['avatar']= 'user/no-user.jpg';
-        // }
         $data['password']=bcrypt($data['password']);
         // dd($data);  
         User::create($data);

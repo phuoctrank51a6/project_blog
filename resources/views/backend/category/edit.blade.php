@@ -21,6 +21,7 @@
                     {{ method_field('PATCH') }}
                     <p>Tên</p>
                     <input class="form-control bg-light border-0 small" value="{{$category->name}}" type="text" name="name">
+                    {!! showError($errors,'name') !!}
                     <p>Trạng thái</p>
                     <select class="form-control bg-light border-0 small" name="status">
                         <option disabled value="">Chọn trạng thái</option>

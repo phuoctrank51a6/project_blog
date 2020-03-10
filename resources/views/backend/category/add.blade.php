@@ -20,6 +20,7 @@
                     @csrf
                     <p>Tên</p>
                     <input class="form-control bg-light border-0 small" placeholder="Nhập tên chủ đề ..." type="text" name="name">
+                    {!! showError($errors,'name') !!}
                     <p>Trạng thái</p>
                     <select class="form-control bg-light border-0 small" name="status">
                         <option disabled value="">Chọn trạng thái</option>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Requests\CategoryRequest;
 use Arr;
 
 class categoryController extends Controller
@@ -15,9 +16,8 @@ class categoryController extends Controller
     function create(){
         return view('backend.category.add');
     }
-    function store(){
-        $data = request()->all();
-        $data = Arr::except($data, ['_token']);
+    function store(CategoryRequest $request){
+        $data = Arr::except($request->all(), ['_token']);
         // dd($data);
         $category = Category::create($data);
         // dd($category);
@@ -34,9 +34,8 @@ class categoryController extends Controller
         // dd($user->name);
         return view('backend.category.edit',$data);
     }
-    function update($id){
-        $request = request()->all();
-        $data = Arr::except($request, ["_token"]);
+    function update(CategoryRequest $request, $id){
+        $data = Arr::except($request->all(), ["_token"]);
         $category = Category::find($id);
         // dd($request['status']);
         $category->name = $request['name'];

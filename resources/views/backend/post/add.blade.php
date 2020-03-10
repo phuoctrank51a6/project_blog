@@ -20,10 +20,13 @@
                     @csrf
                     <p>Tiêu đề</p>
                     <input class="form-control bg-light border-0 small" placeholder="Nhập tiêu đề của bạn ..." type="text" name="title">
+                    {!! showError($errors,'title') !!}
                     <p>Nội dung</p>
                     <textarea rows="5" class="form-control bg-light border-0 small" placeholder="Nhập nội dung của bạn ..." type="text" name="content"></textarea>
+                    {!! showError($errors,'content') !!}
                     <p>Ảnh</p>
                     <input class="form-control bg-light border-0 small" type="file" name="image">
+                    {!! showError($errors,'image') !!}
                     <input value="0" type="hidden" name="status">
                     <input type="hidden" name="like" value="0">
                     <p>Chủ đề</p>

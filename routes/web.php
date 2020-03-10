@@ -36,3 +36,6 @@ Route::group(['prefix' => 'admin/'], function () {
     
 });
 Route::get('send-email', 'EmailController@sendEMail');
+// USER
+Route::get('/', 'homeController@index');
+

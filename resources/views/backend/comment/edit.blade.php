@@ -20,8 +20,10 @@
                     @csrf
                     <p>Tiêu đề</p>
                     <input class="form-control bg-light border-0 small" value="{{$comment->title}}" type="text" name="title">
+                    {!! showError($errors,'title') !!}
                     <p>Nội dung</p>
                     <textarea class="form-control bg-light border-0 small"  rows="5" name="content">{{$comment->content}}</textarea>
+                    {!! showError($errors,'content') !!}
                     <p>Trạng thái</p>
                     <select class="form-control bg-light border-0 small" name="status">
                         <option disabled value="">Chọn trạng thái</option>

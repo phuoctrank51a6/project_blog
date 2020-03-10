@@ -14,27 +14,18 @@ class AuthController extends Controller
     function login(){
         return view('backend.login');
     }
-    function postLogin(LoginRequest $r){
-        $request = request()->all();
-        $data = Arr::except($request, ['_token']);
-        $user = User::where('email', $data['email'])->first();
-        // dd($user);
-        $result = Auth::attempt($data);if ($result) {
+    function postLogin(LoginRequest $request){
+        $data = Arr::except($request->all(), ['_token']);
+        // $user = User::where('email', $data['email'])->first();
+        // dd($data);
+        $result = Auth::attempt($data);
+        // dd($result);
+        if ($result == true) {
             session()->put('email', $data['email']);
             return redirect()->route('admin'); 
         }else{
             return redirect()->back()->withInput()->with('thongbao','Tài khoản hoặc mật khẩu không chính xác'); 
-
-        }
-
-    //         } else {
-    //         if($result){
-    //             session()->put('email', $data['email']);
-    //             return redirect()->route('admin');
-    //         }else{
-    //             return redirect()->back()->withInput()->with('thongbao','Tài khoản hoặc mật khẩu không chính xác');
-    //         }
-        
+        }   
     }
     function logout(){
         Auth::logout();

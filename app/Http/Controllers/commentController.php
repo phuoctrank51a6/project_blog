@@ -5,11 +5,11 @@ use App\Models\Comment;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\CommentRequest;
 use Arr;
 
 class commentController extends Controller
 {
-    
     function index() {
         $comments = Comment::all();
         // dd($comments);
@@ -37,14 +37,13 @@ class commentController extends Controller
         // dd($user->name);
         return view('backend.comment.edit',$comment, ['posts' => $posts]);
     }
-    function update($id){
+    function update(CommentRequest $request, $id){
         // dd($id);
-        $request = request()->all();
         $comment = comment::find($id);
         // dd($comment['title']);
-        $data = Arr::except($request, ["_token"]);
+        $data = Arr::except($request->all(), ["_token"]);
         // dd($data);
         $comment->update($data);
-        return redirect()->route('comment.edit' , $id)->with('success','Cập nhật bình luận thành công');
+        return redirect()->back()->with('success','Cập nhật bình luận thành công');
     }
 }

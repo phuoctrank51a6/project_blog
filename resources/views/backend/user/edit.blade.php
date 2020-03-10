@@ -16,20 +16,25 @@
           <div class="card shadow mb-4">
             <div class="card-body">
               <div class="table-responsive">
-                <form action="{{route('user.update', $user->id)}}" method="post">
+                <form action="{{route('user.update', $user->id)}}" method="post" enctype="multipart/form-data">
                     @csrf
                     {{ method_field('PUT') }}
                     <p>Tên</p>
                     <input class="form-control bg-light border-0 small" value="{{$user->name}}" type="text" name="name">
+                    {!! showError($errors,'name') !!}
                     <p>email</p>
                     <input class="form-control bg-light border-0 small" value="{{$user->email}}" type="text" name="email">
+                    {!! showError($errors,'email') !!}
                     <p>Ảnh đại diện</p>
                     <img src="../storage/{{$user->avatar}}" height="200px" alt="">
                     <input class="form-control bg-light border-0 small" value="{{$user->avatar}}" type="file" name="avatar">
+                    {!! showError($errors,'avatar') !!}
                     <p>Mật khẩu</p>
                     <input class="form-control bg-light border-0 small" placeholder="Nhập tên của bạn ..." type="text" name="password">
+                    {!! showError($errors,'password') !!}
                     <p>Nhập lại mật khẩu</p>
-                    <input class="form-control bg-light border-0 small" placeholder="Nhập tên của bạn ..." type="text" name="repassword">
+                    <input class="form-control bg-light border-0 small" placeholder="Nhập tên của bạn ..." type="text" name="password_confirmation">
+                    {!! showError($errors,'password_confirmation') !!}
                     <p>loại tài khoản</p>
                     <select class="form-control bg-light border-0 small" name="role">
                         <option disabled value="">Chọn loại tài khoản</option>
