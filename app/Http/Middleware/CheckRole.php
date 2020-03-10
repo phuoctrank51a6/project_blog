@@ -17,7 +17,7 @@ class CheckRole
     {
         // dd(config('common.role.admin'));
         if (Auth::user()->role !== config('common.role.admin')) {
-            abort(403);
+            return redirect()->route('blog');
         }
         return $next($request);
     }

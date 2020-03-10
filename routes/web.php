@@ -19,7 +19,7 @@ Route::group(['prefix' => 'admin/'], function () {
     Route::get('register', 'AdminController@register')->name('register');
     Route::post('save-register', 'AdminController@saveRegister')->name('saveRegister');
     Route::get('login', 'AuthController@login')->name('login')->middleware('checkLogout');
-    Route::post('post-login', 'AuthController@postLogin')->name('postLogin');
+    Route::post('post-login', 'AuthController@postLogin')->name('postLogin')->middleware('CheckRole');
     Route::get('logout', 'AuthController@logout')->name('logout');
 
     Route::group(['middleware' => ['checkAuth']], function () {
@@ -37,5 +37,5 @@ Route::group(['prefix' => 'admin/'], function () {
 });
 Route::get('send-email', 'EmailController@sendEMail');
 // USER
-Route::get('/', 'homeController@index');
+Route::get('/', 'homeController@index')->name('blog');
 
