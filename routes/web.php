@@ -19,13 +19,13 @@ Route::group(['prefix' => 'admin/'], function () {
     Route::get('register', 'AdminController@register')->name('register');
     Route::post('save-register', 'AdminController@saveRegister')->name('saveRegister');
     Route::get('login', 'AuthController@login')->name('login')->middleware('checkLogout');
-    Route::post('post-login', 'AuthController@postLogin')->name('postLogin')->middleware('CheckRole');
+    Route::post('post-login', 'AuthController@postLogin')->name('postLogin');
     Route::get('logout', 'AuthController@logout')->name('logout');
 
     Route::group(['middleware' => ['checkAuth']], function () {
         Route::get('', 'AdminController@index')->name('admin');
         // User
-        Route::resource('user', 'UserController')->middleware('checkRole');
+        Route::resource('user', 'UserController');
         // category
         Route::resource('category', 'categoryController');
         // Post
