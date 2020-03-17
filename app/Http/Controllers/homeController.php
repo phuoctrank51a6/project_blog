@@ -69,7 +69,6 @@ class homeController extends Controller
                             ->orderBy('like','desc')
                             ->take(3)
                             ->get();
-                            // dd($posts);
         return view("client.home.index", compact('posts', 'categories', 'limitPosts'));
     }
 }
