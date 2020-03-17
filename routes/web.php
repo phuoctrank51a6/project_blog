@@ -38,4 +38,7 @@ Route::group(['prefix' => 'admin/'], function () {
 Route::get('send-email', 'EmailController@sendEMail');
 // USER
 Route::get('/', 'homeController@index')->name('blog');
+Route::get('detail/{id}', 'homeController@show');
+Route::get('comment', 'homeController@comment');
+Route::get('my-blog/{id}', 'homeController@myBlog');
 

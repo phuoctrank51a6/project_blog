@@ -4,13 +4,18 @@
  @section('content')
 
 <div class="col-xl-8 py-5 px-md-5">
+    @if (session('success'))
+    <div class="alert alert-success">
+        <strong>{{ session('success') }} </strong>
+    </div>
+  @endif
     <div class="row pt-md-4">
         @foreach ($posts as $post)
             <div class="col-md-12">
                 <div class="blog-entry ftco-animate d-md-flex">
-                    <a href="single.html" class="img img-2" style="background-image: url(../storage/{{$post->image}});"></a>
+                    <a href=" {{route('blog').'/detail/'.$post->id}} " class="img img-2" style="background-image: url(../storage/{{$post->image}});"></a>
                     <div class="text text-2 pl-md-4">
-                        <h3 class="mb-2"><a href="single.html"> {{$post->title}} </a></h3>
+                        <h3 class="mb-2"><a href=" {{route('blog').'/detail/'.$post->id}} "> {{$post->title}} </a></h3>
                         <div class="meta-wrap">
                             <p class="meta">
                                 <span><i class="icon-calendar mr-2"></i> {{$post->created_at}} </span>
@@ -19,7 +24,7 @@
                             </p>
                         </div>
                         <p class="mb-4"> {{$post->content}} </p>
-                        <p><a href="#" class="btn-custom">Read More <span class="ion-ios-arrow-forward"></span></a></p>
+                        <p><a href=" {{route('blog').'/detail/'.$post->id}} " class="btn-custom">Read More <span class="ion-ios-arrow-forward"></span></a></p>
                     </div>
                 </div>
             </div>   

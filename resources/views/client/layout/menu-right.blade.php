@@ -1,5 +1,10 @@
 @section('menu-right')
 <div class="col-xl-4 sidebar ftco-animate bg-light pt-5">
+  @if (Auth::User())
+    <a  href="" class="h5 text-primary">Hello, {{Auth::User()->name}}</a>
+  @else
+    <a class="h5 text-danger" href="../admin/login">Đăng nhập</a>
+  @endif
     <div class="sidebar-box pt-md-4">
       <form action="#" class="search-form">
         <div class="form-group">
