@@ -62,6 +62,7 @@ class homeController extends Controller
     function myBlog($id){
         $categories = Category::all();
         $posts = Post::where('user_id',$id)->get();
+        // dd($posts);
         $yearNow = Carbon::now()->year;
         $monthNow = Carbon::now()->month;
         $limitPosts = Post::whereMonth('created_at', $monthNow)
@@ -69,6 +70,6 @@ class homeController extends Controller
                             ->orderBy('like','desc')
                             ->take(3)
                             ->get();
-        return view("client.home.index", compact('posts', 'categories', 'limitPosts'));
+        return view("client.home.my-blog", compact('posts', 'categories', 'limitPosts'));
     }
 }
