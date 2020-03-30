@@ -11,7 +11,7 @@ use Arr;
 class commentController extends Controller
 {
     function index() {
-        $comments = Comment::all();
+        $comments = Comment::paginate(10);
         // dd($comments);
         return view('backend.comment.list', ['comments' => $comments]);
     }

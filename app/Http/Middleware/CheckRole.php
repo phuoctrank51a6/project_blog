@@ -17,7 +17,10 @@ class CheckRole
     {
         // dd(config('common.role.admin'));
         if (Auth::user()->role !== config('common.role.admin')) {
-            abort(403);
+           
+            Auth::logout();
+
+            return redirect()->route('login')->with('thongbao', 'Tài khoản của bạn chưa được kích hoạt!')->withInput();
         }
         return $next($request);
     }

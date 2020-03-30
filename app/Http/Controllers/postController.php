@@ -11,7 +11,7 @@ use App\Http\Requests\PostRequest;
 class postController extends Controller
 {
     function index() {
-        $posts = Post::all();
+        $posts = Post::paginate(10);
         // dd($posts);
         return view('backend.post.list', ['posts' => $posts]);
     }

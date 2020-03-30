@@ -4,7 +4,13 @@
         <ul>
             <li class="colorlib-active"><a href="/">Trang chủ</a></li>
             <li><a href="fashion.html">Chủ đề</a></li>
-            <li><a href="{{'/my-blog/'.Auth::User()->id}}">My blog</a></li>
+            <li><a href="
+                @if(Auth::User())
+                    {{'/my-blog/'.Auth::User()->id}}
+                @else
+                    {{'../admin/login'}}
+                @endif
+                ">My blog</a></li>
             <li><a href="about.html">About</a></li>
             <li><a href="contact.html">Contact</a></li>
         </ul>

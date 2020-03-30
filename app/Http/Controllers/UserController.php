@@ -10,7 +10,7 @@ use Arr;
 class UserController extends Controller
 {
     function index() {
-        $users = User::all();
+        $users = User::paginate(5);
         // dd($users);
         return view('backend.user.list', ['users' => $users]);
     }

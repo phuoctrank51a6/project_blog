@@ -9,7 +9,7 @@ use Arr;
 class categoryController extends Controller
 {
     function index() {
-        $categories = Category::all();
+        $categories = Category::paginate(10);
         // dd($categories);
         return view('backend.category.list', ['categories' => $categories]);
     }
