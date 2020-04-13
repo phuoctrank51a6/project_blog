@@ -16,13 +16,18 @@ class AuthController extends Controller
     }
     function postLogin(LoginRequest $request){
         $data = Arr::except($request->all(), ['_token']);
-        // $user = User::where('email', $data['email'])->first();
-        // dd($data);
+        $user = User::where('email', $data['email'])->first();
+        // dd($user['role']);
         $result = Auth::attempt($data);
         // dd($result);
         if ($result == true) {
             session()->put('email', $data['email']);
-            return redirect()->route('admin'); 
+            if ($user['role'] == config('common.role.admin')) {
+                return redirect()->route('admin'); 
+            }
+            else {
+                return redirect()->route('blog');
+            }
         }else{
             return redirect()->back()->withInput()->with('thongbao','Tài khoản hoặc mật khẩu không chính xác'); 
         }   

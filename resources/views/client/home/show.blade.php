@@ -7,25 +7,32 @@
 	    				<div class="row pt-md-4">
 	    					<h1 class="mb-3"> {{$post->title}} </h1>
 		            <p> {{$post->content}} </p>
-		            <p>
+		            <div>
 		              <img width="100%" src="../storage/{{$post->image}}" alt="" class="img-fluid">
-		            </p>
-		            <div class="about-author d-flex p-4 bg-light">
-		              <div class="bio mr-5">
-                      <img width="100px" src="../storage/{{$post->user->avatar}}" alt="Image placeholder" class="img-fluid">
-		              </div>
-		              <div class="desc">
-                        <h3>{{$post->user->name}}</h3>
-		                <p> @if ($post->role == config('common.role.admin'))
-                            Người kiểm duyệt
-                            @else Cộng tác viên
-                        @endif </p>
-		              </div>
-		            </div>
+					</div>
+					<div class="row my-2">
+						<div class="col-12 about-author d-flex p-4 bg-light" style="width:720px">
+							<div class="bio mr-12">
+								<img width="100px" src="../storage/{{$post->user->avatar}}" alt="Image placeholder" class="img-fluid">
+							</div>
+							<div class="">
+								<h3>{{$post->user->name}}</h3>
+								<p> @if ($post->role == config('common.role.admin'))
+									Người kiểm duyệt
+									@else Cộng tác viên
+								@endif </p>
+							</div>
+						</div>
+					</div>
 
 
 		            <div class="pt-5 mt-5">
-		              <h3 class="mb-5 font-weight-bold">6 Comments</h3>
+					  <h3 class="mb-5 font-weight-bold">Comments</h3>
+					  @if (count($comments) == 0)
+						<div class="alert alert-warning" role="alert">
+							Chưa có bình luận, hãy là người bình luận đầu tiên cho bài viết này
+						</div>
+				  	@endif
 		              <ul class="comment-list">
                           @foreach ($comments as $comment)
                             <li class="comment">

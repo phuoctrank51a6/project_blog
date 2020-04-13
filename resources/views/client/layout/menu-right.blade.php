@@ -1,7 +1,10 @@
 @section('menu-right')
+
 <div class="col-xl-4 sidebar ftco-animate bg-light pt-5">
+
+
   @if (Auth::User())
-    <a  href="" class="h5 text-primary">Hello, {{Auth::User()->name}}</a>
+    <a  href="" class="h5 text-primary">Hello, {{Auth::User()->name}}</a> || <a class="text-danger" href="/admin/logout">Đăng xuất</a>
   @else
     <a class="h5 text-danger" href="../admin/login">Đăng nhập</a>
   @endif
@@ -67,4 +70,12 @@
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus itaque, autem necessitatibus voluptate quod mollitia delectus aut.</p>
     </div>--}}
   </div><!-- END COL -->
+
+  
+  @if (session('thongbao'))
+  <script>
+      alert("{{ session('thongbao') }}");
+    </script>
+  @endif
+  
 @endsection

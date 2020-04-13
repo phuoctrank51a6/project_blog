@@ -10,14 +10,17 @@
     </div>
   @endif
     <div class="row pt-md-4">
-        @if (!empty($posts))
+        
+        @if (count($posts) == 0)
             <div class="alert alert-warning" role="alert">
                 Bạn chưa có bài viết nào 
             </div>
         @endif
+
         @foreach ($posts as $post)
             <div class="col-md-12">
                 <div class="blog-entry ftco-animate d-md-flex">
+                    
                     <a href=" {{route('blog').'/detail/'.$post->id}} " class="img img-2" style="background-image: url(../storage/{{$post->image}});"></a>
                     <div class="text text-2 pl-md-4">
                         <h3 class="mb-2"><a href=" {{route('blog').'/detail/'.$post->id}} "> {{$post->title}} </a></h3>

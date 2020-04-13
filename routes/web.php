@@ -22,7 +22,7 @@ Route::group(['prefix' => 'admin/'], function () {
     Route::post('post-login', 'AuthController@postLogin')->name('postLogin');
     Route::get('logout', 'AuthController@logout')->name('logout');
 
-    Route::group(['middleware' => ['checkAuth','CheckStatus']], function () {
+    Route::group(['middleware' => ['checkAuth', 'CheckStatus', 'checkRole']], function () {
         Route::get('', 'AdminController@index')->name('admin');
         // User
         Route::resource('user', 'UserController');

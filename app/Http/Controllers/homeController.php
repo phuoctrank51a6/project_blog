@@ -62,7 +62,7 @@ class homeController extends Controller
     function myBlog($id){
         $categories = Category::all();
         $posts = Post::where('user_id',$id)->get();
-        // dd($posts);
+        // dd(empty($posts));
         $yearNow = Carbon::now()->year;
         $monthNow = Carbon::now()->month;
         $limitPosts = Post::whereMonth('created_at', $monthNow)
