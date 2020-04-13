@@ -34,6 +34,9 @@ class commentController extends Controller
         // dd($id); 
         $posts = Post::all();
         $comment['comment'] = comment::find($id);
+        if ($comment['comment'] == null) {
+            return redirect()->route('comment.index')->with('error','Không có bình luận này. Nhấn OK để trở về trang danh sách.');
+        }
         // dd($user->name);
         return view('backend.comment.edit',$comment, ['posts' => $posts]);
     }

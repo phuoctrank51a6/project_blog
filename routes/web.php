@@ -41,4 +41,6 @@ Route::get('/', 'homeController@index')->name('blog');
 Route::get('detail/{id}', 'homeController@show');
 Route::get('comment', 'homeController@comment');
 Route::get('my-blog/{id}', 'homeController@myBlog');
+Route::get('add-blog', 'homecontroller@addBlog')->middleware('checkAuth');
+Route::delete('destroy-blog/{id}', 'homecontroller@destroyBlog')->name("destroyBlog");
 

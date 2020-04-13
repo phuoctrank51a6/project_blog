@@ -4,6 +4,7 @@
  @section('content')
 
 <div class="col-xl-8 py-5 px-md-5">
+    <a href="/add-blog" class="btn btn-primary">Thêm bài viết</a>
     @if (session('success'))
     <div class="alert alert-success">
         <strong>{{ session('success') }} </strong>

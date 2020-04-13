@@ -36,7 +36,7 @@
                         <option value="{{$category->id}}">{{$category->name}}</option>
                       @endforeach
                     </select>
-                    <input value="2" type="hidden" name="user_id">
+                    <input value="{{Auth::User()->id}}" type="hidden" name="user_id">
                     <br><br>
                     <button type="submit" class="btn btn-success btn-icon-split btn-lg">
                         <span class="icon text-white-50">

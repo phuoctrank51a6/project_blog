@@ -36,17 +36,18 @@ class postController extends Controller
         return redirect()->back()->with('success','Thêm bài viết thành công')->withInput();
     }
     function destroy($id){
-        
         $post = Post::find($id);
         // dd($post);
         $post->delete();
-        return redirect()->route('post.index');
-
+        return redirect()->back();
     }
     function edit($id){
         $categories = Category::all();
         $data['post'] = Post::find($id);
         // dd($data);
+        if ($data['post'] == null) {
+            return redirect()->route('post.index')->with('error','Không có bài viết này. Nhấn OK để trở về trang danh sách.');
+        }
         return view('backend.post.edit',$data, ['categories' => $categories]);
     }
     function update(PostRequest $request, $id){

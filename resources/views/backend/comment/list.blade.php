@@ -2,6 +2,11 @@
 
 @section('title', 'Danh sách bình luận')
 @section('content')
+@if (session('error'))
+  <script>
+    alert("{{ session('error') }}")
+  </script>
+@endif
         <!-- Begin Page Content -->
         <div class="container-fluid">
 

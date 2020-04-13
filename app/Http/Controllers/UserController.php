@@ -42,7 +42,10 @@ class UserController extends Controller
     function edit($id){
         // dd($id);
         $data['user'] = User::find($id);
-        // dd($user->name);
+        // dd($data['user']);
+        if ($data['user'] == null) {
+            return redirect()->route('user.index')->with('error','Không có user này. Nhấn OK để trở về trang danh sách.');
+        }
         return view('backend.user.edit',$data);
     }
     function update(EditUserRequest $request, $id){

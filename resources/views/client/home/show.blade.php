@@ -2,7 +2,6 @@
  @extends('client.layout.menu-left') 
  @section('title',"Bài viết") 
  @section('content')
-
 	    			<div class="col-lg-8 px-md-5 py-5">
 	    				<div class="row pt-md-4">
 	    					<h1 class="mb-3"> {{$post->title}} </h1>
@@ -10,11 +9,26 @@
 		            <div>
 		              <img width="100%" src="../storage/{{$post->image}}" alt="" class="img-fluid">
 					</div>
+					
+						@if ( Auth::User() && $post->user_id === Auth::User()->id)
+						
+						<form class="d-inline" action="{{ route('destroyBlog', [$post->id]) }}" method="POST">
+							{{ csrf_field() }}
+							{{ method_field('DELETE') }}
+							<button class="btn btn-danger btn-icon-split" onclick="return del()">
+							  <span class="icon text-white-50">
+								<i class="fas fa-trash"></i>
+							  </span>
+							  Xóa
+							</button>
+					</form>
+						@endif
 					<div class="row my-2">
 						<div class="col-12 about-author d-flex p-4 bg-light" style="width:720px">
 							<div class="bio mr-12">
 								<img width="100px" src="../storage/{{$post->user->avatar}}" alt="Image placeholder" class="img-fluid">
 							</div>
+
 							<div class="">
 								<h3>{{$post->user->name}}</h3>
 								<p> @if ($post->role == config('common.role.admin'))
@@ -138,7 +152,7 @@
 		                    <label for="message">Nội dung</label>
                             {!! showError($errors,'content') !!}
 		                    <textarea name="content" cols="30" rows="10" class="form-control" value="{{ old('content') }}"></textarea>
-		                  </div>
+						  </div>
 		                  <div class="form-group">
                             <input type="submit" value="Post Comment" class="btn py-3 px-4 btn-primary">
                             <input type="hidden" name="status" value="0">
@@ -152,6 +166,11 @@
 		              </div>
 		            </div>
                         </div>
-                        <!-- END-->
+						<!-- END-->
             
+  <script>
+    function del() {
+      return confirm("Bạn có muốn xóa bài viết này hay không ?")
+    }
+  </script>
     @endsection @extends('client.layout.menu-right')

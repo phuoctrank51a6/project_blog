@@ -72,4 +72,23 @@ class homeController extends Controller
                             ->get();
         return view("client.home.my-blog", compact('posts', 'categories', 'limitPosts'));
     }
+    function addBlog(){
+        $categories = Category::all();
+        // dd(empty($posts));
+        $yearNow = Carbon::now()->year;
+        $monthNow = Carbon::now()->month;
+        $limitPosts = Post::whereMonth('created_at', $monthNow)
+                            ->whereYear('created_at', $yearNow)
+                            ->orderBy('like','desc')
+                            ->take(3)
+                            ->get();
+        return view('client.home.add-blog', compact('categories', 'limitPosts'));
+    }
+    function destroyBlog($id){
+        // dd($id);
+        $post = Post::find($id);
+        // dd($post);
+        $post->delete();
+        return redirect()->route('blog')->with('success', 'Xoá bài viết thành công');
+    }
 }

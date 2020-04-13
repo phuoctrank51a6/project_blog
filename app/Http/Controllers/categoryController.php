@@ -32,6 +32,9 @@ class categoryController extends Controller
     function edit($id){
         $data['category'] = Category::find($id);
         // dd($user->name);
+        if ($data['category'] == null) {
+            return redirect()->route('category.index')->with('error','Không có chủ đề này. Nhấn OK để trở về trang danh sách.');
+        }
         return view('backend.category.edit',$data);
     }
     function update(CategoryRequest $request, $id){
