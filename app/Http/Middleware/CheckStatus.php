@@ -15,7 +15,9 @@ class CheckStatus
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::check() && Auth::user()->status === 0){ 
+        // dd(config('common.status.daDuyet'));
+        if(Auth::check() && Auth::user()->status === config('common.status.choDuyet')){ 
+            // dd(Auth::user()->status);
 
             Auth::logout();
 
